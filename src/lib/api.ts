@@ -3,7 +3,7 @@ import { mockFacilities, mockBookings } from './mock-data';
 
 // Create an Axios instance
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/api', // Adjust if backend is on a different port/host
+  baseURL: `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api`, // Adjust if backend is on a different port/host
   headers: {
     'Content-Type': 'application/json',
   },
@@ -34,7 +34,7 @@ apiClient.interceptors.response.use(
       if (typeof window !== 'undefined') {
         // Clear local storage
         localStorage.removeItem('authToken');
-        
+
         // Redirect to login if not already there
         if (window.location.pathname !== '/login') {
           window.location.href = '/login';
@@ -55,8 +55,8 @@ export const searchFacilities = async (params: Record<string, any>) => {
 };
 
 export const createFacility = async (payload: any) => {
-  const newFacility = { 
-    ...payload, 
+  const newFacility = {
+    ...payload,
     id: `fac-new-${Math.random()}`,
     available_capacity_kg: payload.capacity_kg,
     created_at: new Date().toISOString(),
