@@ -37,4 +37,12 @@ venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+# Archives
+*.zip
+*.tar.gz
+
+# Environment
 .env
+.env.*
+!.env.example
+
